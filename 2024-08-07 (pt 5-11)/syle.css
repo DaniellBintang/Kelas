@@ -2,3 +2,10 @@ div {
   width: 70%;
   margin: auto;
 }
+h1 {
+  color: green;
+}
+
+h2 {
+  color: darkred;
+}
