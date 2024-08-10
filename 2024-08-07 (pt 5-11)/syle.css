@@ -8,4 +8,14 @@ h1 {
 
 h2 {
   color: darkred;
+  border: 1px dashed lightblue;
+}
+
+p {
+  border: 1px solid black;
+  margin-top: 0px;
+}
+
+img {
+  border: 1px solid black;
 }
