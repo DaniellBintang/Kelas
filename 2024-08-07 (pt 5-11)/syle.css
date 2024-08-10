@@ -2,6 +2,7 @@ div {
   width: 70%;
   margin: auto;
 }
+
 h1 {
   color: green;
 }
@@ -18,4 +19,16 @@ p {
 
 img {
   border: 1px solid black;
+}
+
+p {
+  border: 1px solid black;
+}
+
+h1 {
+  color: yellowgreen;
+}
+
+h2 {
+  color: red;
 }
