@@ -2,46 +2,26 @@
   margin: 0;
 }
 
-div {
-  width: 70vw;
+.content {
+  margin-top: 3%;
+}
+
+.wrapper {
+  width: 80%;
   margin: auto;
 }
 
-.content {
+section {
   margin-top: 2%;
 }
 
-h1 {
-  color: green;
-  border: 3px solid brown;
+footer {
+  margin: 3%;
+  text-align: center;
 }
 
-h2 {
-  color: darkred;
-  border: 1px dashed lightblue;
-  margin-bottom: 100px;
-}
-
-p {
-  border: 1px solid black;
-  padding: 20px;
-}
-
-img {
-  border: 1px solid black;
-  margin: 0px;
-}
-
-p {
-  border: 1px solid black;
-}
-
-h1 {
-  color: yellowgreen;
-}
-
-h2 {
-  color: red;
+section h2 {
+  margin-bottom: 2%;
 }
 
 #paragraph {
