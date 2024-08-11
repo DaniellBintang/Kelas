@@ -3,7 +3,7 @@
 }
 
 .content {
-  margin-top: 3%;
+  margin-top: 1%;
 }
 
 .wrapper {
@@ -15,13 +15,35 @@ section {
   margin-top: 2%;
 }
 
+header img {
+  width: 150px;
+  float: left;
+}
+
+header h1 {
+  margin-left: 10%;
+  margin-bottom: 0%;
+  position: relative;
+  top: 30px;
+  left: 20px;
+}
+
+nav {
+  clear: both;
+}
+
+nav ul {
+  margin-top: 2%;
+}
+
 footer {
   margin: 3%;
   text-align: center;
 }
 
-section h2 {
-  margin-bottom: 2%;
+section p {
+  margin-top: 2%;
+  font-size: 18px;
 }
 
 #paragraph {
