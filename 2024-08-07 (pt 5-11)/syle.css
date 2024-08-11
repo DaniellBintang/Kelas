@@ -1,13 +1,19 @@
+* {
+  margin: 0;
+}
+
 div {
   width: 70vw;
   margin: auto;
 }
 
+.content {
+  margin-top: 2%;
+}
+
 h1 {
   color: green;
   border: 3px solid brown;
-  position: sticky;
-  top: 20px;
 }
 
 h2 {
@@ -108,7 +114,7 @@ ul li ul li {
   width: 100%;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 500px) {
   body {
     background: darksalmon;
   }
