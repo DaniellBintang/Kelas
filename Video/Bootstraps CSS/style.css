@@ -1,19 +1,28 @@
-.lima {
-  height: 50px;
+.carousel-item img {
+  height: 250px;
 }
 
-.seratus {
-  height: 100px;
+@media (min-width: 560px) {
+  .carousel-item img {
+    height: 500px;
+    margin-right: auto;
+    margin-left: auto;
+  }
 }
 
-.kuning {
-  background-color: yellow;
+.jumbotron {
+  padding: 1rem;
 }
 
-.hijau {
-  background-color: green;
+.container h1 {
+  font-size: 4em;
+  font-weight: bold;
 }
 
-.merah {
-  background-color: red;
+.card img {
+  height: 220px;
+}
+
+.card {
+  width: 18rem;
 }
