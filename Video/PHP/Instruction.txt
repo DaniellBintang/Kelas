@@ -1,2 +1,0 @@
-first, extract only the part.1
-then Copy  to Xampp Directory.
