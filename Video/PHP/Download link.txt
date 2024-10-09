@@ -1,3 +1,0 @@
-copy this link to download at once -> https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/DaniellBintang/Kelas/tree/main/Video/PHP
-extract only the part.1
-then Copy  to Xampp Directory.
