@@ -1,0 +1,150 @@
+#home {
+  background-image: url("bahan-uts2024/assets/img/bg-masthead.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#home button {
+  padding: 1rem 2rem 1rem 2rem;
+  font-size: 14px;
+}
+
+#home-content {
+  position: relative;
+  top: 200px;
+}
+
+#services {
+  background-color: #1678a2;
+  color: white;
+}
+
+#uts {
+  position: relative;
+  top: 60px;
+}
+
+#uts button {
+  padding: 1rem 2.5rem 1rem 2.5rem;
+  margin-top: 10px;
+}
+
+.dot {
+  height: 7rem;
+  width: 7rem;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 150px;
+}
+
+.description {
+  text-align: center;
+  display: inline-flex;
+}
+
+#welcome {
+  background-image: url("bahan-uts2024/assets/img/bg-callout.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+#welcome h1 {
+  font-size: 3.5rem;
+}
+
+#welcome button {
+  margin-top: -500px;
+}
+
+#welcome [class*="col"] {
+  margin-top: 200px;
+}
+
+.hover {
+  width: 600px;
+  margin: 0px;
+  transition: width 0.3s, height 0.3s, opacity 0.3s;
+}
+.hover:hover {
+  width: 550px;
+  height: auto;
+  opacity: 0.7;
+}
+
+[class*="desk"] {
+  text-align: start;
+  position: relative;
+  bottom: 120px;
+  margin-bottom: -900px;
+  color: white;
+}
+
+.desk-1 {
+  right: 8vw;
+}
+.desk-2 {
+  left: 7vw;
+}
+
+.porto-content {
+  margin-top: -500px;
+  margin-bottom: 50px;
+}
+
+#click {
+  background-color: #1678a2;
+}
+
+#click h1 {
+  margin-top: 100px;
+  color: white;
+}
+
+.tombol {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 170px;
+}
+
+.tombol button {
+  padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+}
+
+#map {
+  background-image: url("bahan-uts2024/assets/img/map.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 200px;
+}
+
+#space {
+  gap: 10px;
+}
+
+.round {
+  height: 4.5rem;
+  width: 4.5rem;
+  background-color: #1678a2;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.round:hover {
+  background-color: #389bc5;
+}
+
+footer {
+  height: 200px;
+  margin-top: -200px;
+  color: rgb(170, 170, 170);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
