@@ -1,0 +1,75 @@
+h3 {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-weight: 900;
+  font-size: x-large;
+}
+
+.container {
+  width: 70%;
+  height: auto;
+  border: black 1px solid;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  background-color: whitesmoke;
+}
+
+.img {
+  height: 20rem;
+  width: 20rem;
+  border: black 2px solid;
+  margin-left: 10rem;
+  margin-top: 3rem;
+}
+
+#deskripsi {
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.isi {
+  width: 55rem;
+  height: 34rem;
+  background-color: white;
+  border-radius: 2%;
+  margin-bottom: 3rem;
+}
+
+#inti {
+  height: 30rem;
+}
+
+.kiri {
+  height: auto;
+  width: 24rem;
+  border: black 1px solid;
+}
+
+.kanan {
+  height: auto;
+  width: 24rem;
+  border: black 1px solid;
+}
+
+.contact {
+  font-size: 14px;
+}
+
+.profil p {
+  font-size: smaller;
+}
+
+.edukasi table {
+  font-size: smaller;
+}
+
+.flex {
+  display: flex;
+}
+
+.telp img,
+.email img,
+.alamat img {
+  width: 40px;
+  height: 40px;
+}

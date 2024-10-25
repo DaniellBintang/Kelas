@@ -1,0 +1,82 @@
+h3 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: 900;
+  font-size: x-large;
+}
+
+.container {
+  width: 60%;
+  height: auto;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  background-color: whitesmoke;
+}
+
+.img {
+  height: 20rem;
+  width: 20rem;
+  margin-left: 10rem;
+  margin-top: 3rem;
+}
+
+.img img {
+  width: 17vw;
+}
+.contact {
+  font-size: 14px;
+}
+
+#deskripsi {
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.isi {
+  width: 55rem;
+  height: 34rem;
+  background-color: white;
+  border-radius: 2%;
+  margin-bottom: 3rem;
+}
+
+#inti {
+  height: 30rem;
+}
+
+.kiri {
+  height: auto;
+  width: 24rem;
+}
+
+.kanan {
+  height: auto;
+  width: 24rem;
+  margin-left: 1rem;
+}
+
+.profil p {
+  font-size: smaller;
+}
+
+.edukasi table {
+  font-size: smaller;
+}
+
+.flex {
+  display: flex;
+}
+
+.telp img,
+.email img,
+.alamat img {
+  width: 40px;
+  height: 40px;
+}
+
+.line {
+  position: absolute;
+  top: 58.9vh;
+  left: 51.8vw;
+  border-left: 2px solid black;
+  height: 180px;
+}
