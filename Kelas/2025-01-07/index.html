@@ -1,0 +1,41 @@
+<!-- HTML Form -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD Barang</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <form action="PHP/process.php" method="POST" enctype="multipart/form-data">
+      <h2>Tambah Barang</h2>
+      <label for="nama_barang">Nama Barang</label>
+      <input
+        class="center"
+        type="text"
+        id="nama_barang"
+        name="nama_barang"
+        required
+      />
+
+      <label for="harga">Harga</label>
+      <input class="center" type="number" id="harga" name="harga" required />
+
+      <label for="stok">Stok</label>
+      <input class="center" type="number" id="stok" name="stok" required />
+
+      <label for="gambar">Gambar</label>
+      <input
+        class="center"
+        type="file"
+        id="gambar"
+        name="gambar"
+        accept="image/*"
+        required
+      />
+
+      <button type="submit">Simpan</button>
+    </form>
+  </body>
+</html>
