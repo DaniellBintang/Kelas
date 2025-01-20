@@ -5,6 +5,14 @@ if (!isset($_SESSION['user_id'])) {
     header("Location:crud/login.php");
     exit();
 }
+
+// Inisialisasi session cart jika belum ada
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+$cart = $_SESSION['cart']; // Pastikan $cart selalu array
+
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +22,7 @@ if (!isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review Item</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -26,9 +34,10 @@ if (!isset($_SESSION['user_id'])) {
             width="100" />
         <div class="nav-links">
             <?php if (isset($_SESSION['user_id'])): ?>
+                <a href="cart.php">Cart (<span id="cart-count"><?= count($cart) ?></span>)</a>
+                <a href="catalog.php">Explore</a>
                 <span>Welcome, <?= htmlspecialchars($_SESSION['user_email']); ?></span>
                 <a href="crud/logout.php">Logout</a>
-                <a href="index.php">Order</a>
             <?php else: ?>
                 <a href="crud/login.php">Login</a>
             <?php endif; ?>
@@ -86,7 +95,7 @@ if (!isset($_SESSION['user_id'])) {
                 <label for="photo">Upload Photo (Optional)</label>
                 <input type="file" id="photo" name="photo" accept="image/*">
 
-                <button type="submit">Submit Review</button>
+                <button class="add-to-cart" type="submit">Submit Review</button>
             </form>
         </section>
 

@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $hashedPassword)) {
             $_SESSION['user_id'] = $userId;
             $_SESSION['user_email'] = $email;
-            header("Location:../index.php");
+            header("Location:../catalog.php");
             exit();
         } else {
             $error_message = "Invalid email or password.";
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="auth-style.css">
+    <link rel="stylesheet" href="styles/auth-style.css">
 </head>
 
 <body>
