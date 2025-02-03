@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Jan 2025 pada 15.08
+-- Waktu pembuatan: 02 Feb 2025 pada 13.24
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.0.30
 
@@ -68,25 +68,45 @@ INSERT INTO `guitars` (`id`, `guitar_name`, `guitar_image`, `guitar_price`) VALU
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `guitar_details`
+--
+
+CREATE TABLE `guitar_details` (
+  `id` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `specifications` text NOT NULL,
+  `stock` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `guitar_details`
+--
+
+INSERT INTO `guitar_details` (`id`, `description`, `specifications`, `stock`) VALUES
+(4, 'The American Professional II Stratocaster® draws from more than sixty years of innovation, inspiration and evolution to meet the demands of today\'s working player.\r\n\r\nOur popular Deep \"C\" neck now sports smooth rolled fingerboard edges, a \"Super-Natural\" satin finish and a newly sculpted neck heel for a supremely comfortable feel and easy access to the upper register. New V-Mod II Stratocaster single-coil pickups are more articulate than ever while retaining bell-like chime and warmth. An upgraded 2-point tremolo with a cold-rolled steel block increases sustain, clarity and high-end sparkle.\r\n\r\nThe American Pro II Stratocaster delivers instant familiarity and sonic versatility you\'ll feel and hear right away, with broad ranging improvements that add up to nothing less than a new standard for professional instruments.', 'Top: Spruce \r\nBack & Sides: Mahogany\r\nNeck: Maple\r\nStrings: Steel\r\nBridge Pickup : V-Mod II Single-Coil Jazzmaster®\r\nNeck Pickup : V-Mod II Single-Coil Jazzmaster®\r\nControls : Lead Circuit Controls (Slide Switch Down): Master Volume, Master Tone; Rhythm Circuit Controls (Slide Switch Up): Thumbwheel Volume and Tone Controls for Series Rhythm Mode', 50),
+(5, 'The American Professional II Precision Bass® V draws from more than sixty years of innovation, inspiration and evolution to meet the demands of today\'s working player.\r\n\r\nThe \'63 P Bass® profile neck now sports smooth rolled fingerboard edges, a \"Super-Natural\" satin finish and a newly sculpted neck heel for a supremely comfortable feel and easy access to the upper register. The new V-Mod II Precision Bass V split-coil pickup is more articulate than ever while delivering the punch and growl the P Bass® is known for.\r\n\r\nThe American Pro II Precision Bass V delivers instant familiarity and sonic versatility you\'ll feel and hear right away, with broad ranging improvements that add up to nothing less than a new standard for professional instruments.', 'Body Material : Alder\r\nBody Finish   : Gloss Urethane\r\nBody Shape    : Precision Bass®\r\nMiddle Pickup : V-Mod II Split Single-Coil Precision Bass®\r\nControls      : Master Volume, Master Tone\r\nSwitching     : None', 28),
+(6, 'The American Professional II Stratocaster® draws from more than sixty years of innovation, inspiration and evolution to meet the demands of today\'s working player.\r\n\r\nOur popular Deep \"C\" neck now sports smooth rolled fingerboard edges, a \"Super-Natural\" satin finish and a newly sculpted neck heel for a supremely comfortable feel and easy access to the upper register. New V-Mod II Stratocaster single-coil pickups are more articulate than ever while retaining bell-like chime and warmth. An upgraded 2-point tremolo with a cold-rolled steel block increases sustain, clarity and high-end sparkle.\r\n\r\nThe American Pro II Stratocaster delivers instant familiarity and sonic versatility you\'ll feel and hear right away, with broad ranging improvements that add up to nothing less than a new standard for professional instruments.', 'Body Material : Alder\r\nBody Finish   : Gloss Urethane\r\nBody Shape    : Stratocaster®\r\nBridge Pickup : V-Mod II Single-Coil Strat®\r\nMiddle Pickup : V-Mod II Single-Coil Strat®\r\nNeck Pickup   : V-Mod II Single-Coil Strat®\r\nControls      : Master Volume, Tone 1. (Neck/Middle Pickups), Tone 2. (Bridge Pickup)', 80);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `orders`
 --
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `customer_name` varchar(255) DEFAULT NULL,
-  `customer_email` varchar(255) DEFAULT NULL,
-  `customer_address` varchar(255) DEFAULT NULL,
-  `order_details` varchar(255) DEFAULT NULL,
-  `total_price` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp()
+  `user_id` int(11) NOT NULL,
+  `address` text NOT NULL,
+  `total_price` decimal(10,2) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `orders`
 --
 
-INSERT INTO `orders` (`id`, `customer_name`, `customer_email`, `customer_address`, `order_details`, `total_price`, `created_at`) VALUES
-(18, 'Daniel Bintang', 'danielbintang@gmail.com', 'Tebel Kali', '{\"American Professional II Jazzmaster®\":{\"quantity\":2,\"price\":24000}}', 48000, '2025-01-11 22:05:22');
+INSERT INTO `orders` (`id`, `user_id`, `address`, `total_price`, `created_at`) VALUES
+(3, 1, 'Jl. Sentana III NO.20 RT/RW 009/005 Gedangan, Sidoarjo, Jawa Timur', 20000.00, '2025-02-02 12:16:57');
 
 -- --------------------------------------------------------
 
@@ -118,16 +138,19 @@ INSERT INTO `reviews` (`id`, `email`, `item_name`, `review`, `photo`, `created_a
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `address` text NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`) VALUES
-(1, 'danelbintang@gmail.com', '$2y$10$UoEywTH9QlMZDMcmn84reeUsi0Wlz5eb70/5Ihjg35ELtHrsZD9Fi');
+INSERT INTO `users` (`id`, `name`, `email`, `address`, `password`, `created_at`) VALUES
+(1, 'Daniel Bintang', 'danelbintang@gmail.com', 'Jl. Sentana III NO.20 RT/RW 009/005 Gedangan, Sidoarjo, Jawa Timur', '$2y$10$iSxYd0.xkkzpEn2VvSH3s.6bWLaJz8mflzmZ8M8tFhpunbr8jyY3i', '2025-01-18 17:42:45');
 
 --
 -- Indexes for dumped tables
@@ -147,10 +170,17 @@ ALTER TABLE `guitars`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `guitar_details`
+--
+ALTER TABLE `guitar_details`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indeks untuk tabel `reviews`
@@ -182,10 +212,16 @@ ALTER TABLE `guitars`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT untuk tabel `guitar_details`
+--
+ALTER TABLE `guitar_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT untuk tabel `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `reviews`
@@ -198,6 +234,22 @@ ALTER TABLE `reviews`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `guitar_details`
+--
+ALTER TABLE `guitar_details`
+  ADD CONSTRAINT `guitar_details_ibfk_1` FOREIGN KEY (`id`) REFERENCES `guitars` (`id`);
+
+--
+-- Ketidakleluasaan untuk tabel `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

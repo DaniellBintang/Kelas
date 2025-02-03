@@ -165,3 +165,204 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const tabButtons = document.querySelectorAll(".tab-button");
+  const tabContents = document.querySelectorAll(".tab-content");
+
+  tabButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const targetTab = button.getAttribute("data-tab");
+
+      // Reset active states
+      tabButtons.forEach((btn) => btn.classList.remove("active"));
+      tabContents.forEach((content) => content.classList.remove("active"));
+
+      // Activate the clicked tab and corresponding content
+      button.classList.add("active");
+      document.getElementById(targetTab).classList.add("active");
+    });
+  });
+});
+
+// Add this to a new file named 'slider.js'
+document.addEventListener("DOMContentLoaded", function () {
+  let slideIndex = 0;
+  const slides = document.getElementsByClassName("slide");
+  const dots = document.getElementsByClassName("dot");
+  const prev = document.querySelector(".prev");
+  const next = document.querySelector(".next");
+
+  // Automatically advance slides every 5 seconds
+  setInterval(function () {
+    nextSlide(1);
+  }, 5000);
+
+  // Show initial slide
+  showSlides(slideIndex);
+
+  // Add click events to prev/next buttons
+  prev.addEventListener("click", function () {
+    nextSlide(-1);
+  });
+
+  next.addEventListener("click", function () {
+    nextSlide(1);
+  });
+
+  // Add click events to dots
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].addEventListener("click", function () {
+      currentSlide(i);
+    });
+  }
+
+  function nextSlide(n) {
+    showSlides((slideIndex += n));
+  }
+
+  function currentSlide(n) {
+    showSlides((slideIndex = n));
+  }
+
+  function showSlides(n) {
+    if (n >= slides.length) {
+      slideIndex = 0;
+    }
+    if (n < 0) {
+      slideIndex = slides.length - 1;
+    }
+
+    // Hide all slides
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+
+    // Show current slide
+    slides[slideIndex].style.display = "block";
+    dots[slideIndex].className += " active";
+  }
+});
+
+let currentSlide = 0;
+const slides = document.querySelectorAll(".banner");
+const dots = document.querySelector(".banner-dots");
+let autoSlideInterval;
+let isTransitioning = false;
+
+// Create dots
+slides.forEach((_, index) => {
+  const dot = document.createElement("span");
+  dot.classList.add("dot");
+  dot.onclick = () => goToSlide(index);
+  dots.appendChild(dot);
+});
+
+function updateSlideClasses(direction) {
+  slides.forEach((slide, index) => {
+    slide.classList.remove("active", "prev", "next");
+
+    if (index === currentSlide) {
+      slide.classList.add("active");
+    } else if (
+      direction === 1 &&
+      index === (currentSlide + 1) % slides.length
+    ) {
+      slide.classList.add("next");
+    } else if (
+      direction === -1 &&
+      index === (currentSlide - 1 + slides.length) % slides.length
+    ) {
+      slide.classList.add("prev");
+    }
+  });
+}
+
+function changeSlide(direction) {
+  if (isTransitioning) return;
+  isTransitioning = true;
+
+  slides[currentSlide].classList.remove("active");
+  document.querySelectorAll(".dot")[currentSlide].classList.remove("active");
+
+  currentSlide = (currentSlide + direction + slides.length) % slides.length;
+
+  updateSlideClasses(direction);
+  document.querySelectorAll(".dot")[currentSlide].classList.add("active");
+
+  // Reset transition lock after animation completes
+  setTimeout(() => {
+    isTransitioning = false;
+  }, 800);
+}
+
+function goToSlide(n) {
+  if (isTransitioning || n === currentSlide) return;
+
+  const direction = n > currentSlide ? 1 : -1;
+  currentSlide = n;
+  updateSlideClasses(direction);
+
+  document.querySelectorAll(".dot").forEach((dot, index) => {
+    dot.classList.toggle("active", index === n);
+  });
+}
+
+// Auto-advance slides with reset on user interaction
+function startAutoSlide() {
+  autoSlideInterval = setInterval(() => changeSlide(1), 5000);
+}
+
+function resetAutoSlide() {
+  clearInterval(autoSlideInterval);
+  startAutoSlide();
+}
+
+// Event listeners for user interaction
+document
+  .querySelector(".banner-container")
+  .addEventListener("mouseenter", () => {
+    clearInterval(autoSlideInterval);
+  });
+
+document
+  .querySelector(".banner-container")
+  .addEventListener("mouseleave", startAutoSlide);
+
+// Initialize slider
+updateSlideClasses(1);
+document.querySelectorAll(".dot")[0].classList.add("active");
+startAutoSlide();
+
+// Optional: Add touch support for mobile devices
+let touchStartX = 0;
+let touchEndX = 0;
+
+document
+  .querySelector(".banner-container")
+  .addEventListener("touchstart", (e) => {
+    touchStartX = e.touches[0].clientX;
+  });
+
+document
+  .querySelector(".banner-container")
+  .addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].clientX;
+    handleSwipe();
+  });
+
+function handleSwipe() {
+  const swipeThreshold = 50;
+  const difference = touchStartX - touchEndX;
+
+  if (Math.abs(difference) > swipeThreshold) {
+    if (difference > 0) {
+      // Swipe left
+      changeSlide(1);
+    } else {
+      // Swipe right
+      changeSlide(-1);
+    }
+  }
+}

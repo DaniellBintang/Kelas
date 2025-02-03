@@ -27,7 +27,7 @@ $cart = $_SESSION['cart'];
     <div class="navbar">
         <img src="Fender_guitars_logo.svg.png" alt="Logo">
         <div class="nav-links">
-            <a href="catalog.php">Explore</a>
+            <a href="index.php">Shop</a>
             <a href="reviews.php">Reviews</a>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <span>Welcome, <?= htmlspecialchars($_SESSION['user_email']); ?></span>
@@ -72,17 +72,19 @@ $cart = $_SESSION['cart'];
         </div>
     <?php else: ?>
         <div id="checkout-container">
-            <p>Total Price: $<span id="total-price">
-                    <?php
-                    $total = 0;
-                    foreach ($cart as $item) {
-                        $total += $item['price'] * $item['quantity'];
-                    }
-                    echo $total;
-                    ?>
-                </span></p>
-            <div id="checkout-button">
-                <a href="checkout.php"">Proceed to Checkout</a>
+            <div class="checkout-wrapper">
+                <p>Total Price: $<span id="total-price">
+                        <?php
+                        $total = 0;
+                        foreach ($cart as $item) {
+                            $total += $item['price'] * $item['quantity'];
+                        }
+                        echo $total;
+                        ?>
+                    </span></p>
+                <div id="checkout-button">
+                    <a href="checkout.php"">Proceed to Checkout</a>
+                </div>
             </div>
         </div>
     <?php endif; ?>

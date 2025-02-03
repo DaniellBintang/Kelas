@@ -2,49 +2,18 @@
 include 'crud/db_connection.php';
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location:crud/login.php");
-    exit();
+// Inisialisasi session cart jika belum ada
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
 }
 
+$cart = $_SESSION['cart'];
 $conn = openConnection();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $customer_name = $_POST['customer_name'];
-    $customer_email = $_POST['customer_email'];
-    $customer_address = $_POST['customer_address'];
-    $order_details = $_POST['order_details'];
-    $total_price = $_POST['total_price'];
-
-    $stmt = $conn->prepare("INSERT INTO orders (customer_name, customer_email, customer_address, order_details, total_price) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssd", $customer_name, $customer_email, $customer_address, $order_details, $total_price);
-
-    if ($stmt->execute()) {
-        // Set session variable to indicate success
-        $_SESSION['order_success'] = true;
-
-        // Redirect to the same page using GET
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit();
-    } else {
-        echo "<p>Error placing order: " . $conn->error . "</p>";
-    }
-
-    $stmt->close();
-}
-
-// Check session for success state
-$showModal = false;
-if (isset($_SESSION['order_success'])) {
-    $showModal = true;
-    unset($_SESSION['order_success']); // Clear session variable after showing modal
-}
 
 // Fetch guitars from database
 $sql = "SELECT * FROM guitars";
 $result = $conn->query($sql);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,45 +21,80 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Guitar Store</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="scripts.js"></script>
+    <title>Choose Your Hero</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/cart.js" defer></script>
 </head>
 
 <body>
     <div class="navbar">
-        <img
-            alt="Logo"
-            height="40"
-            src="Fender_guitars_logo.svg.png"
-            width="100" />
+        <img src="Fender_guitars_logo.svg.png" alt="Logo" height="40" width="100">
         <div class="nav-links">
+            <a href="cart.php">Cart (<span id="cart-count"><?= count($cart) ?></span>)</a>
+            <a href="reviews.php">Reviews</a>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <span>Welcome, <?= htmlspecialchars($_SESSION['user_email']); ?></span>
                 <a href="crud/logout.php">Logout</a>
-                <a href="reviews.php">Reviews</a>
             <?php else: ?>
                 <a href="crud/login.php">Login</a>
             <?php endif; ?>
         </div>
     </div>
+
+    <!-- Banner Section -->
+    <div class="banner-container">
+        <div class="banner-slides">
+            <div class="banner active">
+                <div class="banner-content">
+                    <h1>Premium Guitar Collection</h1>
+                    <p>Discover our finest selection of Fender guitars</p>
+                    <a href="#guitar-catalog" class="cta-button">Shop Now</a>
+                </div>
+                <img src="crud/uploads/fenderbanner3.jpeg" alt="Premium Guitars">
+            </div>
+            <div class="banner">
+                <div class="banner-content">
+                    <h1>New Arrivals</h1>
+                    <p>Check out our latest guitar models</p>
+                    <a href="#guitar-catalog" class="cta-button">View Collection</a>
+                </div>
+                <img src="crud/uploads/Player_Series_Banner_-_Desktop_2268x630.png" alt="New Arrivals">
+            </div>
+            <div class="banner">
+                <div class="banner-content">
+                    <h1>Special Offer</h1>
+                    <p>Get up to 30% off on selected models</p>
+                    <a href="#guitar-catalog" class="cta-button">Shop Deals</a>
+                </div>
+                <img src="crud/uploads/Web_Fender_07_09_24_Player_II_NPI_Launch_Shop_Assets_EN_PLPBanners_XS_926x282@2x.png" alt="Special Offers">
+            </div>
+        </div>
+        <button class="banner-nav prev" onclick="changeSlide(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="banner-nav next" onclick="changeSlide(1)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="banner-dots"></div>
+    </div>
+
     <main>
         <section id="guitar-catalog">
-            <h2>Choose Your Guitars</h2>
+            <h2>Choose Your Heroes</h2>
             <div class="guitar-cards">
                 <?php
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        echo "<div class='card' data-guitar-id='" . htmlspecialchars($row['id']) . "' data-guitar-name='" . htmlspecialchars($row['guitar_name']) . "' data-guitar-price='" . htmlspecialchars($row['guitar_price']) . "'>";
+                        echo "<a href='guitar_details.php?id=" . $row['id'] . "' class='guitar-card-link'>";
+                        echo "<div class='card'>";
                         echo "<img src='crud/" . htmlspecialchars($row['guitar_image']) . "' alt='" . htmlspecialchars($row['guitar_name']) . "'>";
+                        echo "<div class='card-content'>";
                         echo "<h3>" . htmlspecialchars($row['guitar_name']) . "</h3>";
                         echo "<p>Price: $" . htmlspecialchars($row['guitar_price']) . "</p>";
-                        echo "<div class='quantity-control' style='display: none;'>";
-                        echo "<button class='decrement'>-</button>";
-                        echo "<span class='quantity'>1</span>";
-                        echo "<button class='increment'>+</button>";
                         echo "</div>";
                         echo "</div>";
+                        echo "</a>";
                     }
                 } else {
                     echo "<p>No guitars available.</p>";
@@ -98,36 +102,97 @@ $result = $conn->query($sql);
                 ?>
             </div>
         </section>
-        <section id="payment-form">
-            <h2>Payment Details</h2>
-            <form method="POST" action="">
-                <label for="customer_name">Name:</label>
-                <input type="text" id="customer_name" name="customer_name" required>
-
-                <label for="customer_email">Email:</label>
-                <input type="email" id="customer_email" name="customer_email" required>
-
-                <label for="customer_address">Address:</label>
-                <textarea id="customer_address" name="customer_address" required></textarea>
-
-                <h3>Order Summary</h3>
-                <div id="order-summary"></div>
-                <input type="hidden" id="order_details" name="order_details">
-                <input type="hidden" id="total_price" name="total_price">
-
-                <p>Total Price: $<span id="display-total-price">0.00</span></p>
-
-                <button type="submit">Pay Now</button>
-            </form>
-        </section>
     </main>
-    <div id="success-modal" class="modal" data-show-modal="<?= $showModal ? 'true' : 'false' ?>">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Order Confirmed!</h2>
-            <p>Thank you, your order has been successfully placed. We will process your order shortly.</p>
+
+    <!-- Rest of the footer code remains the same -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="cart.php">Cart</a></li>
+                    <li><a href="reviews.php">Reviews</a></li>
+                    <?php if (!isset($_SESSION['user_id'])): ?>
+                        <li><a href="crud/login.php">Login</a></li>
+                    <?php else: ?>
+                        <li><a href="crud/logout.php">Logout</a></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Payment Methods</h3>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa fa-2x"></i>
+                    <i class="fab fa-cc-mastercard fa-2x"></i>
+                    <i class="fab fa-cc-paypal fa-2x"></i>
+                    <i class="fab fa-cc-apple-pay fa-2x"></i>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+                <p style="color: var(--neutral-400); margin-top: 1rem; margin-left: -4rem;">
+                    Follow us for updates and exclusive offers!
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><i class="far fa-envelope"></i> info@guitarshop.com</li>
+                    <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Guitar Street, Music City</li>
+                    <li><i class="far fa-clock"></i> Mon - Fri: 9:00 AM - 6:00 PM</li>
+                </ul>
+            </div>
         </div>
-    </div>
+
+        <div class="footer-bottom">
+            <p>&copy; <?= date('Y') ?> Guitar Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.banner');
+        const dots = document.querySelector('.banner-dots');
+
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('span');
+            dot.classList.add('dot');
+            dot.onclick = () => goToSlide(index);
+            dots.appendChild(dot);
+        });
+
+        function changeSlide(direction) {
+            goToSlide(currentSlide + direction);
+        }
+
+        function goToSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            document.querySelectorAll('.dot')[currentSlide].classList.remove('active');
+
+            currentSlide = (n + slides.length) % slides.length;
+
+            slides[currentSlide].classList.add('active');
+            document.querySelectorAll('.dot')[currentSlide].classList.add('active');
+        }
+
+        // Auto-advance slides
+        setInterval(() => changeSlide(1), 5000);
+
+        // Initialize first slide
+        goToSlide(0);
+    </script>
 </body>
 
 </html>

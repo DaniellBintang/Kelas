@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $hashedPassword)) {
             $_SESSION['user_id'] = $userId;
             $_SESSION['user_email'] = $email;
-            header("Location:../catalog.php");
+            header("Location:../index.php");
             exit();
         } else {
             $error_message = "Invalid email or password.";

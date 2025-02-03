@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'crud/signup_db.php'; // Menghubungkan ke database
+require_once 'crud/signup_db.php';
 
 // Pastikan pengguna sudah login
 if (!isset($_SESSION['user_id'])) {
@@ -9,9 +9,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$user_data = [];
 
-// Ambil informasi pengguna dari database
+// Ambil data pengguna
 $query = $conn->prepare("SELECT name, email, address FROM users WHERE id = ?");
 $query->bind_param("i", $user_id);
 $query->execute();
@@ -24,6 +23,14 @@ if ($result->num_rows > 0) {
 }
 
 $query->close();
+
+// Tentukan item untuk checkout (cart atau buy now)
+$cart = $_SESSION['cart'] ?? [];
+$buy_now = $_SESSION['buy_now'] ?? null;
+
+if ($buy_now) {
+    $cart = [$buy_now]; // Gunakan hanya item "Buy Now" jika ada
+}
 ?>
 
 <!DOCTYPE html>
@@ -169,8 +176,6 @@ $query->close();
                 <h3>Order Summary</h3>
                 <ul>
                     <?php
-                    // Ambil isi cart dari session
-                    $cart = $_SESSION['cart'] ?? [];
                     $total_price = 0;
 
                     foreach ($cart as $item) {

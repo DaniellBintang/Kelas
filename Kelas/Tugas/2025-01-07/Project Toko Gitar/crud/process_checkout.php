@@ -10,6 +10,13 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 $cart = $_SESSION['cart'] ?? [];
+$buy_now = $_SESSION['buy_now'] ?? null;
+
+// Gunakan sesi "Buy Now" jika ada
+if ($buy_now) {
+    $cart = [$buy_now];
+}
+
 $total_price = $_POST['total_price'];
 $address = $_POST['address'];
 
@@ -23,9 +30,10 @@ $query = $conn->prepare("INSERT INTO orders (user_id, address, total_price, crea
 $query->bind_param("isd", $user_id, $address, $total_price);
 
 if ($query->execute()) {
-    // Kosongkan cart setelah checkout
+    // Kosongkan cart dan sesi "Buy Now" setelah checkout
     $_SESSION['cart'] = [];
-    echo "<script>alert('Order successful!'); window.location.href = '../catalog.php';</script>";
+    unset($_SESSION['buy_now']);
+    echo "<script>alert('Order successful!'); window.location.href = '../index.php';</script>";
 } else {
     echo "Error: " . $query->error;
 }

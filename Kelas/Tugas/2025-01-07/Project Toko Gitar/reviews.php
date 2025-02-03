@@ -35,7 +35,7 @@ $cart = $_SESSION['cart']; // Pastikan $cart selalu array
         <div class="nav-links">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <a href="cart.php">Cart (<span id="cart-count"><?= count($cart) ?></span>)</a>
-                <a href="catalog.php">Explore</a>
+                <a href="index.php">Shop</a>
                 <span>Welcome, <?= htmlspecialchars($_SESSION['user_email']); ?></span>
                 <a href="crud/logout.php">Logout</a>
             <?php else: ?>
