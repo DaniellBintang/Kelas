@@ -43,89 +43,70 @@ $query->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Reviews</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        table th,
-        table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        table th {
-            background-color: #f4f4f4;
-        }
-
-        .delete-btn {
-            padding: 5px 10px;
-            background-color: red;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .delete-btn:hover {
-            background-color: darkred;
-        }
-    </style>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
-    <div class="container">
-        <h1>Manage Reviews</h1>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Item Name</th>
-                <th>Review</th>
-                <th>Photo</th>
-                <th>Date</th>
-                <th>Action</th>
-            </tr>
-            <?php foreach ($reviews as $review): ?>
-                <tr>
-                    <td><?= htmlspecialchars($review['id']); ?></td>
-                    <td><?= htmlspecialchars($review['email']); ?></td>
-                    <td><?= htmlspecialchars($review['item_name']); ?></td>
-                    <td><?= htmlspecialchars($review['review']); ?></td>
-                    <td>
-                        <?php if ($review['photo']): ?>
-                            <img src="../<?= htmlspecialchars($review['photo']); ?>" width="50" alt="Review Photo">
-                        <?php endif; ?>
-                    </td>
-                    <td><?= htmlspecialchars($review['created_at']); ?></td>
-                    <td>
-                        <form method="POST" style="display:inline;">
-                            <input type="hidden" name="review_id" value="<?= $review['id']; ?>">
-                            <button type="submit" name="action" value="delete_review" class="delete-btn">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
+    <div class="admin-container">
+        <nav class="admin-nav">
+            <a href="index.php">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+            <a href="manage_guitars.php">
+                <i class="fas fa-guitar"></i> Manage Guitars
+            </a>
+            <a href="manage_orders.php">
+                <i class="fas fa-shopping-cart"></i> Manage Orders
+            </a>
+            <a href="logout.php" class="btn btn-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </nav>
+
+        <div class="reviews-management">
+            <h1>Manage Reviews</h1>
+
+            <div class="review-list">
+                <table class="admin-table" id="reviewsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Email</th>
+                            <th>Item Name</th>
+                            <th>Review</th>
+                            <th>Photo</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($reviews as $review): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($review['id']); ?></td>
+                                <td><?= htmlspecialchars($review['email']); ?></td>
+                                <td><?= htmlspecialchars($review['item_name']); ?></td>
+                                <td><?= htmlspecialchars($review['review']); ?></td>
+                                <td>
+                                    <?php if ($review['photo']): ?>
+                                        <img src="../<?= htmlspecialchars($review['photo']); ?>" class="review-photo" alt="Review Photo">
+                                    <?php endif; ?>
+                                </td>
+                                <td><?= htmlspecialchars($review['created_at']); ?></td>
+                                <td>
+                                    <form method="POST" style="display:inline;">
+                                        <input type="hidden" name="review_id" value="<?= $review['id']; ?>">
+                                        <button type="submit" name="action" value="delete_review" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 

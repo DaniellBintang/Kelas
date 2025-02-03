@@ -185,14 +185,6 @@ closeConnection($conn);
                                     </span>
                                 </td>
                                 <td>
-                                    <button class="btn btn-secondary btn-sm view-details"
-                                        data-order-id="<?= $order['id'] ?>">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-primary btn-sm update-status"
-                                        data-order-id="<?= $order['id'] ?>">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
                                     <form method="POST" style="display:inline;">
                                         <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
                                         <button type="submit" name="delete_order"
@@ -311,6 +303,76 @@ closeConnection($conn);
             align-items: center;
             width: 48%;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-container .orders-management {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .orders-management .order-summary {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .order-summary .summary-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            width: 48%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-card .card-icon {
+            font-size: 32px;
+            margin-right: 15px;
+            color: #3498db;
+        }
+
+        .summary-card .card-content h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .summary-card .card-content p {
+            font-size: 24px;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        .orders-management .order-list {
+            margin-top: 30px;
+        }
+
+        .order-list .order-status {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
         }
 
         .order-status {
