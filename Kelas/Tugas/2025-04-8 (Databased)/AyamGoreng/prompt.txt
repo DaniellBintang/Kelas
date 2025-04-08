@@ -1,0 +1,8 @@
+DaniellBintang
+Buatkan aku admin page yang dapat mengelola dengan metode CRUD
+database dari website restoran ini, mulai dari Creating atau membuat menu
+baru di dalam database menu, Read untuk membaca pesanan yang masuk, melihat
+user yang terdaftar. serta melihat Menu 
+yang terdaftar di database, Update untuk mengubah deskripsi, harga, atau
+gambar menu dan mengupdate status order, serta Delete untuk menghapus 
+database menu dan menghapus User yang terdaftar jika bermasalah
