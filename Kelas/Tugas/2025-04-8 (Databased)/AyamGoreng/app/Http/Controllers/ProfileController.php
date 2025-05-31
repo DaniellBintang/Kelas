@@ -83,7 +83,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return redirect()->route('profile.show')
+        return redirect()->to('/profile')
             ->with('success', 'Profil berhasil diperbarui!');
     }
 
@@ -114,6 +114,6 @@ class ProfileController extends Controller
         $user->avatar = $avatarName;
         $user->save();
 
-        return redirect()->route('profile.show')->with('success', 'Foto profil berhasil diperbarui!');
+        return redirect()->to('/profile')->with('success', 'Foto profil berhasil diperbarui!');
     }
 }

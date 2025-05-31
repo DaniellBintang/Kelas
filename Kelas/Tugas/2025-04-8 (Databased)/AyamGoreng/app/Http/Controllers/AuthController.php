@@ -72,4 +72,23 @@ class AuthController extends Controller
         $user = Auth::user(); // Ambil data pengguna yang sedang login
         return view('auth.profile', compact('user'));
     }
+
+    public function showAdminLoginForm()
+    {
+        return view('admin.login');
+    }
+
+    public function adminLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_admin' => true])) {
+            return redirect()->route('admin.dashboard')->with('success', 'Login berhasil sebagai admin.');
+        }
+
+        return back()->withErrors(['email' => 'Email atau password salah, atau Anda bukan admin.']);
+    }
 }

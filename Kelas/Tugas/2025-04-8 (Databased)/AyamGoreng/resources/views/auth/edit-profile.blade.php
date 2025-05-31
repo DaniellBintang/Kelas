@@ -260,7 +260,7 @@
                                 </div>
 
                                 <div class="form-actions">
-                                    <a href="{{ route('profile.show') }}" class="btn btn-action btn-cancel">
+                                    <a href="{{ url('/profile') }}" class="btn btn-action btn-cancel">
                                         <i class="fas fa-times me-1"></i>Batal
                                     </a>
                                     <button type="submit" class="btn btn-action btn-save">
