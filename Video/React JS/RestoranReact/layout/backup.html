@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- CDN Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2 class="mb-4">Belajar Axios</h2>
+      <div class="d-flex gap-2 mb-3">
+        <button id="btnGet" class="btn btn-primary">GET</button>
+        <button id="btnShow" class="btn btn-info text-white">SHOW</button>
+        <button id="btnPost" class="btn btn-success">POST</button>
+        <button id="btnUpdate" class="btn btn-warning text-white">
+          UPDATE
+        </button>
+        <button id="btnDelete" class="btn btn-danger">DELETE</button>
+      </div>
+      <pre id="result" class="bg-light p-3 border rounded"></pre>
+    </div>
+
+    <script>
+      const url = "http://localhost:8000/api";
+      let token = "42247570";
+      //   axios({
+      //     method: "get",
+      //     url: url,
+      //   })
+      //     .then((res) => console.log(res))
+      //     .catch((err) => console.error(err));
+
+      const link = axios.create({
+        baseURL: url,
+        headers: {
+          api_token: token,
+        },
+      });
+
+      function get() {
+        link
+          .get("/pelanggan")
+          .then((res) => {
+            // Ambil data array dari response
+            const data = res.data;
+            // Buat tabel HTML
+            let html = `<table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Alamat</th>
+            <th>Telp</th>
+          </tr>
+        </thead>
+        <tbody>`;
+            data.forEach((p) => {
+              html += `<tr>
+          <td>${p.idpelanggan}</td>
+          <td>${p.nama}</td>
+          <td>${p.alamat}</td>
+          <td>${p.telp}</td>
+        </tr>`;
+            });
+            html += `</tbody></table>`;
+            // Tampilkan ke elemen <pre id="result">
+            document.getElementById("result").innerHTML = html;
+          })
+          .catch((err) => {
+            document.getElementById("result").textContent = err;
+            console.error(err);
+          });
+      }
+
+      function show() {
+        const id = prompt("Masukkan ID pelanggan:");
+        if (!id) return;
+        link
+          .get(`/pelanggan/${id}`)
+          .then((res) => {
+            const p = res.data;
+            if (!p) {
+              document.getElementById("result").textContent =
+                "Data tidak ditemukan";
+              return;
+            }
+            let html = `<table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Alamat</th>
+            <th>Telp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>${p.idpelanggan}</td>
+            <td>${p.nama}</td>
+            <td>${p.alamat}</td>
+            <td>${p.telp}</td>
+          </tr>
+        </tbody>
+      </table>`;
+            document.getElementById("result").innerHTML = html;
+          })
+          .catch((err) => {
+            document.getElementById("result").textContent =
+              "Data tidak ditemukan";
+            console.error(err);
+          });
+      }
+
+      function post() {
+        // Data pelanggan yang ingin dimasukkan (input manual di kode)
+        const data = {
+          nama: "Pelanggan Baru",
+          alamat: "Jl. Contoh No. 123",
+          telp: "081234567890",
+        };
+
+        link
+          .post("/pelanggan", data)
+          .then((res) => {
+            document.getElementById(
+              "result"
+            ).innerHTML = `<div class="alert alert-success">Data berhasil ditambahkan!</div>
+        <pre>${JSON.stringify(res.data, null, 2)}</pre>`;
+          })
+          .catch((err) => {
+            document.getElementById(
+              "result"
+            ).innerHTML = `<div class="alert alert-danger">Gagal menambahkan data!</div>`;
+            console.error(err);
+          });
+      }
+
+      function hapus() {
+        const id = prompt("Masukkan ID pelanggan yang akan dihapus:");
+        if (!id) return;
+        link
+          .delete(`/pelanggan/${id}`)
+          .then((res) => {
+            document.getElementById(
+              "result"
+            ).innerHTML = `<div class="alert alert-success">Data dengan ID ${id} berhasil dihapus!</div>
+        <pre>${JSON.stringify(res.data, null, 2)}</pre>`;
+          })
+          .catch((err) => {
+            document.getElementById(
+              "result"
+            ).innerHTML = `<div class="alert alert-danger">Gagal menghapus data!</div>`;
+            console.error(err);
+          });
+      }
+
+      function update() {
+        const id = prompt("Masukkan ID pelanggan yang akan diupdate:");
+        if (!id) return;
+
+        // Data baru yang ingin diupdate (bisa diubah sesuai kebutuhan)
+        const data = {
+          nama: "Nama Update",
+          alamat: "Alamat Update",
+          telp: "089999999999",
+        };
+
+        link
+          .put(`/pelanggan/${id}`, data)
+          .then((res) => {
+            document.getElementById(
+              "result"
+            ).innerHTML = `<div class="alert alert-success">Data dengan ID ${id} berhasil diupdate!</div>
+        <pre>${JSON.stringify(res.data, null, 2)}</pre>`;
+          })
+          .catch((err) => {
+            document.getElementById(
+              "result"
+            ).innerHTML = `<div class="alert alert-danger">Gagal mengupdate data!</div>`;
+            console.error(err);
+          });
+      }
+
+      document.getElementById("btnUpdate").onclick = update;
+
+      document.getElementById("btnPost").onclick = post;
+
+      document.getElementById("btnShow").onclick = show;
+
+      document.getElementById("btnGet").onclick = get;
+
+      document.getElementById("btnDelete").onclick = hapus;
+    </script>
+  </body>
+</html>

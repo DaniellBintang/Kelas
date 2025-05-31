@@ -1,0 +1,235 @@
+/* Admin Layout Styling */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8f9fc;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Main Layout (Content Area) */
+.main-layout {
+  flex: 1;
+  margin-left: 280px; /* Match sidebar width */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: margin-left 0.3s ease;
+}
+
+/* Top Navigation */
+.top-nav {
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  z-index: 100;
+  position: sticky;
+  top: 0;
+}
+
+/* Content Area */
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.content-wrapper {
+  flex: 1;
+  padding: 0;
+  overflow-y: auto;
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.02) 0%,
+    rgba(118, 75, 162, 0.02) 100%
+  );
+}
+
+/* Footer Area */
+.footer-area {
+  background: white;
+  border-top: 1px solid #e2e8f0;
+  margin-top: auto;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .main-layout {
+    margin-left: 0;
+  }
+
+  .admin-layout {
+    position: relative;
+  }
+}
+
+/* Tablet Responsive */
+@media (max-width: 992px) and (min-width: 769px) {
+  .main-layout {
+    margin-left: 280px;
+  }
+}
+
+/* Large Screen Optimization */
+@media (min-width: 1400px) {
+  .content-wrapper {
+    max-width: none;
+  }
+}
+
+/* Scrollbar Styling for Content Area */
+.content-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content-wrapper::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.content-wrapper::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 3px;
+}
+
+.content-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* Animation for content loading */
+.content-wrapper > * {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Sidebar Toggle (if you want to add a toggle button later) */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(118, 75, 162, 0.4);
+}
+
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Overlay for mobile sidebar */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  backdrop-filter: blur(4px);
+}
+
+.sidebar-overlay.show {
+  display: block;
+}
+
+/* Loading State */
+.content-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: #667eea;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Print Styles */
+@media print {
+  .admin-layout {
+    display: block;
+  }
+
+  .modern-sidebar,
+  .top-nav,
+  .footer-area {
+    display: none !important;
+  }
+
+  .main-layout {
+    margin-left: 0 !important;
+  }
+
+  .content-wrapper {
+    padding: 0 !important;
+    background: white !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .admin-layout {
+    background: white;
+  }
+
+  .content-wrapper {
+    background: white;
+  }
+
+  .top-nav,
+  .footer-area {
+    border-color: #000;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .main-layout,
+  .content-wrapper > *,
+  .sidebar-toggle {
+    transition: none;
+    animation: none;
+  }
+}

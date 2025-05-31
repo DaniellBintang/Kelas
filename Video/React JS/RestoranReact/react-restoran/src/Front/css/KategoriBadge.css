@@ -1,0 +1,15 @@
+/* ...existing styles... */
+
+.category-badge .badge {
+  font-weight: 500;
+  font-size: 0.8rem;
+  padding: 0.35em 0.65em;
+  background-color: rgba(13, 110, 253, 0.1) !important;
+  color: #0d6efd !important;
+}
+
+.menu-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}

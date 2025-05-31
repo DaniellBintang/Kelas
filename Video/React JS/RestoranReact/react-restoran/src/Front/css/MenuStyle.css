@@ -1,0 +1,51 @@
+.menu-page {
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+.menu-card {
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.menu-card:hover {
+  transform: translateY(-4px);
+}
+
+.menu-image {
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* ...existing styles... */
+
+.cart-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  background: #4f46e5;
+  border: none;
+  padding: 0.5rem 1rem;
+}
+
+.cart-button:hover {
+  background: #4338ca;
+  transform: translateY(-2px);
+}
+
+.cart-button:active {
+  transform: translateY(0);
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.menu-price {
+  margin-top: auto;
+  font-weight: 600;
+  color: #4f46e5;
+}
