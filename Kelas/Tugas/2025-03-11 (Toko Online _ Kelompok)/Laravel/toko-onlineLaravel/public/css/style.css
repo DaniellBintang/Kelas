@@ -1,0 +1,272 @@
+/* public/css/style.css */
+
+:root {
+    --primary-color: #d2042d;
+    --secondary-color: #212529;
+    --accent-color: #ffc1c1;
+    --neutral-100: #ffffff;
+    --neutral-200: #f8f9fa;
+    --neutral-300: #e9ecef;
+    --neutral-400: #ced4da;
+}
+
+/* Global Styles */
+body {
+    font-family: "Inter", sans-serif;
+    background-color: var(--neutral-100);
+    padding-top: 56px;
+    color: #333;
+}
+
+/* Navigation Styles */
+.navbar {
+    transition: all 0.3s ease;
+    background-color: rgba(33, 37, 41, 0.98);
+    padding: 1rem 0;
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+.nav-link {
+    color: var(--neutral-100) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+}
+
+.nav-link:hover {
+    color: var(--accent-color) !important;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-login {
+    background-color: transparent;
+    border: 1px solid var(--neutral-100);
+    color: var(--neutral-100) !important;
+}
+
+.btn-login:hover {
+    background-color: var(--neutral-100);
+    color: var(--secondary-color) !important;
+}
+
+.btn-signup {
+    background-color: var(--primary-color);
+    color: var(--neutral-100) !important;
+    border: 1px solid var(--primary-color);
+}
+
+.btn-signup:hover {
+    background-color: #a00324;
+    border-color: #a00324;
+}
+
+/* Cart Icon Styling */
+.cart-icon {
+    position: relative;
+    margin-left: 10px;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.8rem;
+}
+
+.cart-animation {
+    animation: pulse 1s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Card Styling */
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-title {
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.card-text {
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+/* Button Styling */
+.btn-danger {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-danger:hover {
+    background-color: #a00324;
+    border-color: #a00324;
+}
+
+/* Footer Styling */
+.footer {
+    margin-top: 4rem;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 1rem;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-section h3 {
+    color: var(--neutral-100);
+    margin-bottom: 1.2rem;
+    font-size: 1.2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.footer-section h3::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-section a {
+    color: var(--neutral-400);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: var(--neutral-100);
+}
+
+.payment-methods {
+    display: flex;
+    gap: 1rem;
+    color: var(--neutral-400);
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    color: var(--neutral-100);
+}
+
+.social-links a:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+    }
+
+    .footer-section {
+        margin-bottom: 2rem;
+    }
+}
+
+/* Cart badge animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.cart-animation {
+    animation: pulse 1s;
+}
+
+/* Active link styles */
+.nav-link.active {
+    color: var(--primary-color) !important;
+    font-weight: bold;
+}
+
+/* Cart badge styling */
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.8rem;
+    display: inline-block;
+}
