@@ -1,0 +1,14 @@
+Update Persentase Tugas :
+11 / 11
+
+1. CRUD PHP / 100%
+2. Toko Online _ Individu    / 100%
+3. Toko Online _ Kelompok    / 100%
+4. Ayam Goreng Jos Tampilan  / 100%
+5. Ayam Goreng Jos Dabased   / 100%
+6. React Restoran            / 100%
+7. API Restoran Lumen        / 100%
+8. Video PlayList PHP       / 100%
+9. Video PJBL Laravel       / 100%
+10. Video Restoran PHP AI     / 75%
+11. Video Restoran Laravel AI / 75%
